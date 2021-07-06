@@ -1,15 +1,15 @@
+Candidate for eistag.com website
+
+
 Credits:
 
-	Website Template:
+	Original Website Template: 
 		HTML5 UP
 		AJ
 		aj@lkn.io | @ajlkn
 
 	Background:
 		Irene Kredenets https://unsplash.com/@ikredenets
-
-	Icons:
-		Font Awesome (fontawesome.io)
 
 	Other:
 		jQuery (jquery.com)
