@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/*",
-    "publish": "npm run clean && cp -r src/images dist/images && mkdir dist/assets"
+    "prepare": "cp -r src/* dist/",
+    "build": "npm run clean && npm run prepare && bin/build.sh"
   },
   "repository": {
     "type": "git",
@@ -19,9 +20,10 @@
     "url": "https://github.com/mla1/eistag/issues"
   },
   "homepage": "https://github.com/mla1/eistag#readme",
-  "devDependencies": {},
-  "dependencies": {
+  "devDependencies": {
+    "csso-cli": "^3.0.0",
     "html-minifier-terser": "^5.1.1",
     "uglify-js": "^3.13.10"
-  }
+  },
+  "dependencies": {}
 }
