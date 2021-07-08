@@ -2,7 +2,71 @@
 
 body.is-preload #bg:before {
 	background-color: transparent;
+	animation-name: fadebackground;
+	animation-duration: 3s;
 }
+
+
+@keyframes fadebackground {
+	from {background-color: #000000;}
+	to {background-color: transparent;}
+}
+
+#header {
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: -ms-flex;
+	display: flex;
+	-moz-flex-direction: column;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	-moz-align-items: center;
+	-webkit-align-items: center;
+	-ms-align-items: center;
+	align-items: center;
+	-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	max-width: 100%;
+	text-align: center;
+	flex-basis: 1020px;
+}
+
+@media screen and (max-height: 760px) {
+
+	#header {
+		flex-basis: 720px;
+	}
+}
+
+@media screen and (max-height: 620px) {
+
+	#header {
+		flex-basis: 550px;
+	}
+}
+
+
+
+@media screen and (max-height: 480px) {
+
+	#header {
+		flex-basis: 440px;
+	}
+}
+
+
+@media screen and (max-height: 380px) {
+
+	#header {
+		flex-basis: 360px;
+	}
+}
+
+
+
 
 body.is-preload #header {
 	-moz-filter: none;

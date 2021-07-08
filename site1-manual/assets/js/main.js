@@ -1,4 +1,4 @@
-//Dimension by html5up.net | @ajlkn under CCA 3.0 license https://creativecommons.org/licenses/by/3.0/
+// Dimension by html5up.net | @ajlkn under CCA 3.0 license https://creativecommons.org/licenses/by/3.0/
 
 (function($) {
 
@@ -10,15 +10,13 @@
 		$main = $('#main'),
 		$main_articles = $main.children('article');
 
-	// Breakpoints.
-
 
 	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+	$window.on('load', function() {
+		window.setTimeout(function() {
+			$body.removeClass('is-preload');
+		}, 100);
+	});
 
 
 	// Nav.
