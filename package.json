@@ -1,0 +1,27 @@
+{
+  "name": "eistag",
+  "version": "1.0.0",
+  "description": "Eistag.com website",
+  "main": "index.html",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf dist/*",
+    "publish": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mla1/eistag.git"
+  },
+  "author": "mla",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/mla1/eistag/issues"
+  },
+  "homepage": "https://github.com/mla1/eistag#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "html-minifier-terser": "^5.1.1",
+    "uglify-js": "^3.13.10"
+  }
+}
