@@ -29,6 +29,7 @@
 						<nav>
 							<ul>
 								<li><a href="#about">About</a></li>
+								<li><a href="#review">Review</a></li>
 								<li><a href="#contact">Contact</a></li>
 							</ul>
 						</nav>
@@ -62,6 +63,28 @@
 									About image by Erwan Hesry <a href="https://unsplash.com/@erwanhesry">@erwanhesry</a>
 								</p>
 						</article>
+
+						<article id="review">
+							<h2 class="major">Review</h2>
+								
+								<div>
+									<select x-data="locations" x-model="$store.review.loc">
+										<template x-for="[k, v] in Object.entries(locations)">
+											<option x-text="v" x-bind:value="k"></option>
+										</template>
+									</select>
+								</div>
+								
+								<span x-data x-text="$store.review.loc"></span>
+								<hr />
+								<h4>Attribution</h4>
+								<p class="attribution">
+									Template <a href="https://html5up.net/dimension">"Dimension"</a> by html5up.net | @ajlkn under <a href="https://creativecommons.org/licenses/by/3.0/">CCA BY 3.0</a>  <br />
+									modified by @mla <br /> <br />
+									Background image by Irene Kredenets <a href="https://unsplash.com/@ikredenets">@ikredenets</a> <br />
+									About image by Erwan Hesry <a href="https://unsplash.com/@erwanhesry">@erwanhesry</a>
+								</p>
+						</article>
 					</div>
 
 				<!-- Footer -->
@@ -78,7 +101,8 @@
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/util.js"></script>
+			<script src="assets/js/ui.js"></script>
 			<script src="assets/js/main.js"></script>
-
+			<script src="https://unpkg.com/alpinejs@3.2.1/dist/cdn.min.js"></script>
 	</body>
 </html>
