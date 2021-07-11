@@ -1,0 +1,35 @@
+{
+    "rules": {
+      "location": {
+        ".read": true,
+      },
+      "reviews": {
+        ".read": false,
+        "$location": {
+          ".validate": "root.child('location').child($location).exists()",
+          "$review_id": {
+            ".write": true,
+            ".validate": "newData.hasChildren(['timestamp', 'rating_all', 'rating_price', 'rating_ice', 'rating_service'])",
+            "timestamp": {
+              ".validate": "newData.val() < now"
+            },
+            "rating_all": {
+               ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5",
+            },
+            "rating_price": {
+               ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5",
+            },
+            "rating_ice": {
+               ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5",
+            },
+            "rating_service": {
+               ".validate": "newData.isNumber() && newData.val() >= 1 && newData.val() <= 5",
+            },
+            "text": { 
+             ".validate": "newData.isString() && newData.val().length <= 250",
+            },
+          }
+        }
+      }
+    }
+  }
