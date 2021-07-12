@@ -55,10 +55,7 @@ function init () {
 };
 
 
-document.addEventListener('alpine:init', () => {
-    console.log('alpine:init');
-    init();
-});
+document.addEventListener('alpine:init', () => init());
 
 
 
