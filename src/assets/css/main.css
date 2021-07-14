@@ -1571,3 +1571,25 @@ repeat;
 .attribution {
 	font-size: 11pt;
 }
+
+.ratings {
+	cursor: pointer;
+}
+
+.ratings i {
+	padding-right: 2px;
+}
+
+.ratings i.set:before {
+	content: "\f005";
+	color: gold;
+}
+
+.ratings:hover i:before {
+	content: "\f005";
+	color: gold;
+}
+.ratings i:hover ~ i:before {
+	content: "\f006";
+	color: white;
+}

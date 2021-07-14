@@ -75,7 +75,32 @@
 									</select>
 								</div>
 								
+								<div id="ra" class="ratings" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); $store.review.rating_all=r">
+									<i id="ra1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="ra2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="ra3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="ra4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="ra5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+								</div>
+
+								<div id="ri" class="ratings" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); $store.review.rating_ice=r">
+									<i id="ri1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="ri2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="ri3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="ri4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="ri5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+								</div>
+
+								<div id="rp" class="ratings" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); $store.review.rating_price=r">
+									<i id="rp1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rp2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rp3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rp4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rp5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+								</div>
+
+								<div id="rs" class="ratings" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); $store.review.rating_service=r">
+									<i id="rs1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rs2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rs3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rs4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rs5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+								</div>
+
+								<textarea x-data x-model="$store.review.text">
+
+								</textarea>
 								<span x-data x-text="$store.review.loc"></span>
+								<span x-data x-text="$store.review.rating_all"></span>
+								<span x-data x-text="$store.review.rating_ice"></span>
+								<span x-data x-text="$store.review.rating_price"></span>
+								<span x-data x-text="$store.review.rating_service"></span><br />
+								<span x-data x-text="$store.review.text"></span>
+
 								<hr />
 								<h4>Attribution</h4>
 								<p class="attribution">
@@ -99,6 +124,24 @@
 			<div id="bg"></div>
 
 		<!-- Scripts -->
+			<!-- The core Firebase JS SDK is always required and must be listed first -->
+			<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+			<script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+
+			<script>
+				var firebaseConfig = {
+					apiKey: "AIzaSyABX9w9ONeXZ4I3y4f611lV3tNRg0W2Vp8",
+					authDomain: "eistag.firebaseapp.com",
+					databaseURL: "https://eistag-default-rtdb.europe-west1.firebasedatabase.app",
+					projectId: "eistag",
+					storageBucket: "eistag.appspot.com",
+					messagingSenderId: "98493141044",
+					appId: "1:98493141044:web:9d2a2cc6c8919526e8fa61",
+					measurementId: "G-6NKH0L5HFN"
+				};
+				// Initialize Firebase
+				firebase.initializeApp(firebaseConfig);
+			</script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/ui.js"></script>

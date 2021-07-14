@@ -1,12 +1,18 @@
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
-const locations = {};
+
+function ratingstuff(num, type) {
+  $("#" + type + " i").removeClass('set');
+  for (let i = 1; i <= num; i++) {
+    $("i#"+ type + i).addClass('set');
+  }
+}
 
 function init () {
     Alpine.data("locations", () => ({
-        locations: {},
-        async init() {
-            this.locations = await fetch(url+"location.json").then(response => response.json());
-        },
+      locations: {},
+      async init() {
+        this.locations = await fetch(url+"location.json").then(response => response.json());
+      },
     }));
 
     Alpine.store('review', {
