@@ -30,6 +30,7 @@
 						<nav>
 							<ul>
 								<li><a href="#about">About</a></li>
+								<li><a href="#review">Review</a></li>
 								<li><a href="#contact">Contact</a></li>
 							</ul>
 						</nav>
@@ -63,6 +64,95 @@
 									About image by Erwan Hesry <a href="https://unsplash.com/@erwanhesry">@erwanhesry</a>
 								</p>
 						</article>
+
+						<article id="review" x-data="review" x-on:loc-loaded.window="loc=$event.detail.location">
+							<h2 class="major">Review</h2>
+								
+								<div>
+									<select x-data="locations" x-model="loc" x-init="$nextTick(() => {loc=first});">
+										<template x-for="[k, v] in Object.entries(locations)">
+											<option x-text="v" x-bind:value="k"></option>
+										</template>
+									</select>
+								</div>
+
+								<div class="reviewcontainer">
+									<div class="ratings">
+										
+										<label>Ice Cream</label>
+										<span id="ri" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_ice=r">
+											<i id="ri1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="ri2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="ri3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="ri4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="ri5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+										</span>
+										<label>Price</label>
+										<span id="rp" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_price=r">
+											<i id="rp1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rp2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rp3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rp4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rp5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+										</span>
+										<label>Service</label>
+										<span id="rs" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_service=r">
+											<i id="rs1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rs2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rs3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rs4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rs5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+										</span>
+
+										
+									</div>
+									<textarea class="textreview" placeholder="Type your review here..." maxlength="300" x-data x-model="text">
+									</textarea>
+								</div>
+								<div class="submitreview">
+									<button id="submit" @click="send()">Submit review</button>
+									<span x-data x-text="status" x-show="status"  x-transition.duration.600ms></span>
+								</div>
+
+								<div class="termsandconditions">By submitting a review you accept our <a href="#terms">terms and conditions</a></div>
+						</article>
+
+						<article id="terms">
+							<h2 class="major">Terms / Privacy Policy</h2>
+							<div>
+								<h3>What data do we collect?</h3>
+								<ul>
+									<li>Reviews of ice cream places</li>
+								</ul>
+								
+								<h3>How do we collect your data?</h3>
+								<ul>
+									<li>You directly provide us with all of the data we collect. We collect data and process data when you submit a review.</li>
+								</ul>
+
+								<h3>How will we use your data?</h3>
+								We collect your data so that we can:
+								<ul>
+									<li>perform statistical analysis on reviews</li>
+									<li>improve a service</li>
+									<li>publish all or part of reviews</li>
+								</ul>
+								
+								<h3>How do we store your data?</h3>
+								<ul>
+									<li>We use Google Firebase Realtime Database to store the data.
+										Therefore, by submitting a review your IP address and user agent information is submitted to servers owned by Google and
+										is subject to <a href="https://firebase.google.com/terms/data-processing-terms">Firebase Data Processing and Security Terms</a>.</li>
+									<li>
+										We will keep the reviews for as long as Google Firebase Realtime Database provides a free tier. Once this time period has expired, we will delete your data by deleting the database.
+									</li>
+								</ul>
+
+								<h3>Privacy policies of other websites</h3>
+								The website contains links to other websites. Our privacy policy applies only to our website, so if you click on a link to another website, you should read their privacy policy.
+
+								<h3>How to contact us</h3>
+								Email us at: <a href="mailto:mail@eistag.com">mail@eistag.com</a>
+
+								<hr>
+								By submitting a review you agree that
+								<ol>
+									<li>we store the data according to the terms above</li>
+									<li>we process and publish the data.<br />Processing includes statistical analysis, improving a service, modifying the review and publishing all or a modified version.</li>
+									<li>the review is subject to <a href="https://creativecommons.org/publicdomain/zero/1.0/legalcode">CC0 1.0 Universal license</a>.</li>
+								</ol>
+			
+								Any personal information (names, email adresses, telefon numbers, etc.) submitted in the text field will not be processed or published and the particular review will be deleted as soon as it comes to our attention.
+							</div>
+						</article>
 					</div>
 
 				<!-- Footer -->
@@ -75,11 +165,13 @@
 			</div>
 		<!-- BG -->
 			<div id="bg"></div>
-
+			
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/util.js"></script>
+			<script src="assets/js/ui.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="https://unpkg.com/alpinejs@3.2.1/dist/cdn.min.js"></script>
 
 	</body>
 </html>
