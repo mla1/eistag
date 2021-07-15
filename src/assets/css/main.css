@@ -115,7 +115,7 @@ input, select, textarea {
 		@media screen and (max-width: 736px) {
 
 			html {
-				font-size: 12pt;
+				font-size: 14pt;
 			}
 
 		}
@@ -123,7 +123,7 @@ input, select, textarea {
 		@media screen and (max-width: 360px) {
 
 			html {
-				font-size: 11pt;
+				font-size: 12pt;
 			}
 
 		}
@@ -382,80 +382,6 @@ input, select, textarea {
 		z-index: -1;
 	}
 
-		input[type="checkbox"] + label,
-		input[type="radio"] + label {
-			text-decoration: none;
-			-moz-user-select: none;
-			-webkit-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-			color: #ffffff;
-			cursor: pointer;
-			display: inline-block;
-			font-size: 0.8rem;
-			font-weight: 300;
-			margin: 0 0 0.5rem 0;
-			padding-left: 2.65rem;
-			padding-right: 0.75rem;
-			position: relative;
-		}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
-				-moz-osx-font-smoothing: grayscale;
-				-webkit-font-smoothing: antialiased;
-				display: inline-block;
-				font-style: normal;
-				font-variant: normal;
-				text-rendering: auto;
-				line-height: 1;
-				text-transform: none !important;
-				font-family: 'Font Awesome 5 Free';
-				font-weight: 900;
-			}
-
-			input[type="checkbox"] + label:before,
-			input[type="radio"] + label:before {
-				-moz-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-				-webkit-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-				-ms-transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-				transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-				border-radius: 4px;
-				border: solid 1px #ffffff;
-				content: '';
-				display: inline-block;
-				height: 1.65rem;
-				left: 0;
-				line-height: 1.65rem;
-				position: absolute;
-				text-align: center;
-				top: -0.15rem;
-				width: 1.65rem;
-			}
-
-		input[type="checkbox"]:checked + label:before,
-		input[type="radio"]:checked + label:before {
-			background: #ffffff !important;
-			border-color: #ffffff !important;
-			color: #1b1f22;
-			content: '\f00c';
-		}
-
-		input[type="checkbox"]:focus + label:before,
-		input[type="radio"]:focus + label:before {
-			background: rgba(255, 255, 255, 0.075);
-			border-color: #ffffff;
-			box-shadow: 0 0 0 1px #ffffff;
-		}
-
-	input[type="checkbox"] + label:before {
-		border-radius: 4px;
-	}
-
-	input[type="radio"] + label:before {
-		border-radius: 100%;
-	}
-
 	::-webkit-input-placeholder {
 		color: rgba(255, 255, 255, 0.5) !important;
 		opacity: 1.0;
@@ -501,36 +427,6 @@ input, select, textarea {
 			border-radius: 0;
 			padding: 0;
 		}
-
-/* Icon */
-
-	.icon {
-		text-decoration: none;
-		border-bottom: none;
-		position: relative;
-	}
-
-		.icon:before {
-			-moz-osx-font-smoothing: grayscale;
-			-webkit-font-smoothing: antialiased;
-			display: inline-block;
-			font-style: normal;
-			font-variant: normal;
-			text-rendering: auto;
-			line-height: 1;
-			text-transform: none !important;
-			font-family: 'Font Awesome 5 Free';
-			font-weight: 400;
-		}
-
-		i.fa:before {
-			line-height: inherit;
-		}
-
-		.icon.solid:before {
-			font-weight: 900;
-		}
-
 
 /* Image */
 
@@ -1436,7 +1332,7 @@ repeat;
 	-webkit-transition: opacity 0.325s ease-in-out, -webkit-transform 0.325s ease-in-out;
 	-ms-transition: opacity 0.325s ease-in-out, -ms-transform 0.325s ease-in-out;
 	transition: opacity 0.325s ease-in-out, transform 0.325s ease-in-out;
-	padding: 4.5rem 2.5rem 1.5rem 2.5rem ;
+	padding: 4.5rem 2.5rem 1rem 2.5rem ;
 	position: relative;
 	width: 40rem;
 	max-width: 100%;
@@ -1495,11 +1391,9 @@ repeat;
 
 .textreview {
 	flex: 1;
-	height: 200px;
 	min-height: 100px;
 	max-height: 250px;
 	resize: vertical;
-	padding: 0.5rem 1rem;
 }
 
 @media screen and (max-width: 736px) {
@@ -1536,6 +1430,15 @@ repeat;
 		flex:none;
 	}
 
+	.submitreview {
+		flex-direction: column !important;
+		align-items: center !important;
+		height: 100px;
+	}
+
+	.submitreview #submit {
+		margin-bottom: 20px;
+	}
 }
 
 @media screen and (max-width: 480px) {
@@ -1601,10 +1504,6 @@ body.is-preload #footer {
 	margin-right: 40px;
 }
 
-button#submit {
-	margin-top: 20px;
-}
-
 .ratings {
 	display: grid;
 	grid-template-columns: max-content max-content;
@@ -1636,4 +1535,24 @@ button#submit {
 .rating i:hover ~ i:before {
 	content: "\f006";
 	color: white;
+}
+
+.submitreview {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: baseline;
+	margin-top: 40px;
+}
+
+.submitreview > span {
+	flex: 1;
+	text-align: center;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.termsandconditions {
+	font-size: 14px;
+	margin-top: 30px;
 }

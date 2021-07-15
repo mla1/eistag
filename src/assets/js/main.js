@@ -1,14 +1,5 @@
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
 
-function ratingstuff(num, type) {
-  document.querySelectorAll("#" + type + " i").forEach((e) => {
-    e.classList.remove("set");
-  });
-  for (let i = 1; i <= num; i++) {
-    document.querySelector("i#" + type + i).classList.add('set');
-  }
-}
-
 function init () {
   Alpine.data("locations", () => ({
     locations: {},
@@ -27,21 +18,24 @@ function init () {
 
   Alpine.data('review', () => ({
     loc: "",
-    "rating_price": 1,
-    "rating_ice": 1,
-    "rating_service": 1,
+    "rating_price": 0,
+    "rating_ice": 0,
+    "rating_service": 0,
     text: "",
     status: "",
     clear() {
-        console.log("clear");
-        this.rating_price = 1;
-        this.rating_ice = 1;
-        this.rating_service = 1;
+        this.rating_price = 0;
+        this.rating_ice = 0;
+        this.rating_service = 0;
         this.text = "";
         this.status = "";
     },
     send() {
-      console.log(this.loc);
+      if (!this.rating_ice || !this.rating_price || !this.rating_service) {
+        this.status = "Star ratings are required!"
+        return;
+      }
+
       data = {
           "timestamp": Date.now()-1000,
           "rating_price": this.rating_price,
@@ -49,7 +43,6 @@ function init () {
           "rating_service": this.rating_service,
           "text": this.text
       };
-      console.log(JSON.stringify(data));
 
       fetch(url+"reviews/"+this.loc+".json", {
         method: 'POST',
@@ -58,14 +51,42 @@ function init () {
         },
         body: JSON.stringify(data)
       }).then(response => {
-        console.log("success!");
-        this.clear();
-        this.status = "Review sent!";
+        if (response.ok) {
+          // ok
+          this.clear();
+          document.querySelectorAll("span.rating > i").forEach((e) => {
+            e.classList.remove("set");
+          });
+          this.status = "Review submitted";
+        } else {
+          switch (response.status) {
+            case 400:
+              this.status = "Bad Request: " + response.text()
+              break;
+            case 401:
+              this.status = "Error, star ratings are required";
+              break;
+            default:
+              this.status = "Failed"
+              break;
+          }
+        }
+
       }).catch(error => {
         console.log("failed....");
+        console.log(error);
         this.clear();
         this.status = "Error sending review";
       });
+    },
+    ratingstuff(num, type) {
+      this.status = '';
+      document.querySelectorAll("#" + type + " i").forEach((e) => {
+        e.classList.remove("set");
+      });
+      for (let i = 1; i <= num; i++) {
+        document.querySelector("i#" + type + i).classList.add('set');
+      }
     }
   }));
 };
