@@ -15,3 +15,4 @@ npx csso src/assets/css/noscript.css --output dist/assets/css/noscript.css
 
 npx uglifyjs src/assets/js/main.js --compress -o dist/assets/js/main.js
 npx uglifyjs src/assets/js/util.js --compress -o dist/assets/js/util.js
+npx uglifyjs src/assets/js/ui.js --compress -o dist/assets/js/ui.js
