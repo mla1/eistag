@@ -37,7 +37,9 @@ function init () {
       }
 
       data = {
-          "timestamp": Date.now()-1000,
+          "timestamp": {
+            ".sv": "timestamp"
+          },
           "rating_price": this.rating_price,
           "rating_ice": this.rating_ice,
           "rating_service": this.rating_service,
