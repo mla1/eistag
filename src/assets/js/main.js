@@ -1,11 +1,12 @@
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
+const current='2023';
 
 function init () {
   Alpine.data("locations", () => ({
     locations: {},
     first: '',
     async init() {
-      this.locations = await fetch(url+"location.json").then(response => response.json());
+      this.locations = await fetch(url+"location/"+current+".json").then(response => response.json());
       this.first = Object.keys(this.locations)[0];
       let event = new CustomEvent("loc-loaded", {
         detail: {
