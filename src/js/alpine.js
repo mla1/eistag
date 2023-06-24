@@ -1,7 +1,21 @@
+import Alpine from 'alpinejs';
+import { doSignIn, getLocations } from './firebase.js'
+
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
 const current='2023';
 
 function init () {
+
+  Alpine.data("firebaseapi", () => ({
+    test() { 
+      console.log('asdf');
+      doSignIn();
+    },
+    test2() {
+      getLocations();
+    }
+  }));
+
   Alpine.data("locations", () => ({
     locations: {},
     first: '',
@@ -96,7 +110,4 @@ function init () {
 
 
 document.addEventListener('alpine:init', () => init());
-
-
-
-
+Alpine.start();

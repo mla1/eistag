@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf dist/*",
     "prepare": "cp -r src/* dist/",
-    "build": "npm run clean && npm run prepare && bin/build.sh"
+    "build": "NODE_ENV=production npx webpack && bin/build.sh"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,15 @@
   },
   "homepage": "https://github.com/mla1/eistag#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
     "csso-cli": "^4.0.0",
     "html-minifier-terser": "^7.2.0",
-    "uglify-js": "^3.17.0"
+    "uglify-js": "^3.17.0",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "alpinejs": "^3.12.2",
+    "firebase": "^9.23.0"
   }
 }

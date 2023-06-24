@@ -7,9 +7,9 @@
 		<meta name="description" content="Eistag.com is an informational website about the Eistag holiday celebrated in Austria.">
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<meta property="twitter:site" content="@eistag">
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="css/main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<noscript><link rel="stylesheet" href="css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
 
@@ -24,6 +24,8 @@
 								<p>
 									<i class="fa fa-calendar-o" aria-hidden="true"></i> July 1st<br />
 									<i class="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/P3ZtR2ZWdEoefLbKA">48.21114, 16.3653</a>
+									<li x-data="firebaseapi" @click="test()">test login</li>
+									<li x-data="firebaseapi" @click="test2()">test login</li>
 								</p>
 							</div>
 						</div>
@@ -167,11 +169,9 @@
 			<div id="bg"></div>
 			
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/ui.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+			<script src="js/jquery.min.js"></script>
+			<script src="js/util.js"></script>
+			<script src="js/ui.js"></script>
+			<script src="js/main.js" type="module"></script>
 	</body>
 </html>

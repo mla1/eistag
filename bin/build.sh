@@ -10,9 +10,8 @@ npx html-minifier-terser --input-dir src \
     --remove-tag-whitespace \
     --use-short-doctype
 
-npx csso src/assets/css/main.css --output dist/assets/css/main.css
-npx csso src/assets/css/noscript.css --output dist/assets/css/noscript.css
+npx csso src/css/main.css --output dist/css/main.css
+npx csso src/css/noscript.css --output dist/css/noscript.css
 
-npx uglifyjs src/assets/js/main.js --compress -o dist/assets/js/main.js
-npx uglifyjs src/assets/js/util.js --compress -o dist/assets/js/util.js
-npx uglifyjs src/assets/js/ui.js --compress -o dist/assets/js/ui.js
+npx uglifyjs src/js/util.js --compress -o dist/js/util.js
+npx uglifyjs src/js/ui.js --compress -o dist/js/ui.js
