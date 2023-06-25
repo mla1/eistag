@@ -19,15 +19,20 @@ function init () {
   Alpine.data("locations", () => ({
     locations: {},
     first: '',
+    error: null,
     async init() {
-      this.locations = await fetch(url+"location/"+current+".json").then(response => response.json());
-      this.first = Object.keys(this.locations)[0];
-      let event = new CustomEvent("loc-loaded", {
-        detail: {
-          location: this.first
-        }
-      });
-      window.dispatchEvent(event);
+      try {
+        this.locations = await getLocations(current); 
+        this.first = Object.keys(this.locations)[0];
+        let event = new CustomEvent("loc-loaded", {
+          detail: {
+            location: this.first
+          }
+        });
+        window.dispatchEvent(event);
+      } catch (e) {
+        this.error = e;
+      }
     },
   }));
 

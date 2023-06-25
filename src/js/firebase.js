@@ -1,11 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getDatabase, ref, child, get} from "firebase/database";
-
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-
+import { firebaseConfig } from './config.js';
 
 
 // Initialize Firebase
@@ -39,14 +35,20 @@ export function doSignIn() {
 
 }
 
-export function getLocations() {
+export async function getLocations(year='') {
+
     const db = getDatabase(app);
     const locationRef = ref(db, '/location');
-    get(locationRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            console.log(snapshot.val());
-        } else {
-            console.log("No data");
-        }
-    }).catch(e=>console.log(e));
+    if (!year) {
+        var d = new Date();
+        year = d.getFullYear().toString();
+    }
+
+    var snapshot =  await get(child(locationRef, year));
+    
+    if (snapshot.exists()) {
+        return snapshot.val();
+    }
+    
+    throw new Error(`Data for year "${year}" not found`);
 }

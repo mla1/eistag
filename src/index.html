@@ -69,7 +69,6 @@
 
 						<article id="review" x-data="review" x-on:loc-loaded.window="loc=$event.detail.location">
 							<h2 class="major">Review</h2>
-								
 								<div>
 									<select x-data="locations" x-model="loc" x-init="$nextTick(() => {loc=first});">
 										<template x-for="[k, v] in Object.entries(locations)">
@@ -77,7 +76,9 @@
 										</template>
 									</select>
 								</div>
-
+								<div id="reviewerror" x-data="locations" x-show="!!error">
+									<p x-text="error"></p>
+								</div>
 								<div class="reviewcontainer">
 									<div class="ratings">
 										
