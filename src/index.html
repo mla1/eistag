@@ -15,7 +15,8 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-
+				<div x-data="user">
+				<span id="login"><span x-text="username" x-show="username" x-transition.duration.600ms></span>&nbsp;<i  @click="signIn()" class="fa fa-user-o" aria-hidden="true"></i></span>
 				<!-- Header -->
 					<header id="header">
 						<div class="content">
@@ -24,8 +25,6 @@
 								<p>
 									<i class="fa fa-calendar-o" aria-hidden="true"></i> July 1st<br />
 									<i class="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/P3ZtR2ZWdEoefLbKA">48.21114, 16.3653</a>
-									<li x-data="firebaseapi" @click="test()">test login</li>
-									<li x-data="firebaseapi" @click="test2()">test login</li>
 								</p>
 							</div>
 						</div>
@@ -33,11 +32,15 @@
 							<ul>
 								<li><a href="#about">About</a></li>
 								<li><a href="#review">Review</a></li>
+								<template x-if="loggedin">
+										<li><a href="#track">Track</a></li>
+								</template>
 								<li><a href="#contact">Contact</a></li>
+
 							</ul>
 						</nav>
 					</header>
-
+				</div>
 				<!-- Main -->
 					<div id="main">
 
@@ -67,32 +70,42 @@
 								</p>
 						</article>
 
+						<article id="track">
+							<h2 class="major">Track your Ice Cream</h2>
+							<div x-data="{ loc: '' }">
+								<div class="submitreview">
+									<button id="submit" @click="send()">Submit review</button>
+									<span x-text="status" x-show="status"  x-transition.duration.600ms></span>
+								</div>
+							</div>
+						</article>
+
 						<article id="review" x-data="review" x-on:loc-loaded.window="loc=$event.detail.location">
 							<h2 class="major">Review</h2>
 								<div>
-									<select x-data="locations" x-model="loc" x-init="$nextTick(() => {loc=first});">
-										<template x-for="[k, v] in Object.entries(locations)">
+									<select x-model="loc" x-init="$nextTick(() => {loc=$store.locations.first});">
+										<template x-for="[k, v] in Object.entries($store.locations.locations)">
 											<option x-text="v" x-bind:value="k"></option>
 										</template>
 									</select>
 								</div>
-								<div id="reviewerror" x-data="locations" x-show="!!error">
-									<p x-text="error"></p>
+								<div id="reviewerror" x-show="!!$store.locations.error">
+									<p x-text="$store.locations.error"></p>
 								</div>
 								<div class="reviewcontainer">
 									<div class="ratings">
 										
 										<label>Ice Cream</label>
 										<span id="ri" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_ice=r">
-											<i id="ri1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="ri2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="ri3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="ri4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="ri5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+											<i id="ri1" class="fa fa-star-o" @mousedown="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="ri2" class="fa fa-star-o" @mousedown="r=2" aria-hidden="true"></i><i id="ri3" class="fa fa-star-o" @mousedown="r=3" aria-hidden="true"></i><i id="ri4" class="fa fa-star-o" @mousedown="r=4" aria-hidden="true"></i><i id="ri5" class="fa fa-star-o" @mousedown="r=5" aria-hidden="true"></i>								
 										</span>
 										<label>Price</label>
 										<span id="rp" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_price=r">
-											<i id="rp1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rp2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rp3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rp4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rp5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+											<i id="rp1" class="fa fa-star-o" @mousedown="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rp2" class="fa fa-star-o" @mousedown="r=2" aria-hidden="true"></i><i id="rp3" class="fa fa-star-o" @mousedown="r=3" aria-hidden="true"></i><i id="rp4" class="fa fa-star-o" @mousedown="r=4" aria-hidden="true"></i><i id="rp5" class="fa fa-star-o" @mousedown="r=5" aria-hidden="true"></i>								
 										</span>
 										<label>Service</label>
 										<span id="rs" class="rating" x-data="{ r: 0 }" x-effect="ratingstuff(r, $el.id); rating_service=r">
-											<i id="rs1" class="fa fa-star-o" @click="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rs2" class="fa fa-star-o" @click="r=2" aria-hidden="true"></i><i id="rs3" class="fa fa-star-o" @click="r=3" aria-hidden="true"></i><i id="rs4" class="fa fa-star-o" @click="r=4" aria-hidden="true"></i><i id="rs5" class="fa fa-star-o" @click="r=5" aria-hidden="true"></i>								
+											<i id="rs1" class="fa fa-star-o" @mousedown="r===1 ? r=0 : r=1" aria-hidden="true"></i><i id="rs2" class="fa fa-star-o" @mousedown="r=2" aria-hidden="true"></i><i id="rs3" class="fa fa-star-o" @mousedown="r=3" aria-hidden="true"></i><i id="rs4" class="fa fa-star-o" @mousedown="r=4" aria-hidden="true"></i><i id="rs5" class="fa fa-star-o" @mousedown="r=5" aria-hidden="true"></i>								
 										</span>
 
 										
@@ -102,7 +115,7 @@
 								</div>
 								<div class="submitreview">
 									<button id="submit" @click="send()">Submit review</button>
-									<span x-data x-text="status" x-show="status"  x-transition.duration.600ms></span>
+									<span x-text="status" x-show="status"  x-transition.duration.600ms></span>
 								</div>
 
 								<div class="termsandconditions">By submitting a review you accept our <a href="#terms">terms and conditions</a></div>

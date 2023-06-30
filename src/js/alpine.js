@@ -1,28 +1,51 @@
 import Alpine from 'alpinejs';
-import { doSignIn, getLocations } from './firebase.js'
+import { doSignIn, getLocations, postReview } from './firebase.js'
+
 
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
 const current='2023';
 
 function init () {
 
-  Alpine.data("firebaseapi", () => ({
-    test() { 
-      console.log('asdf');
-      doSignIn();
+  Alpine.data("user", () => ({
+    loggedin: false,
+    username: '',
+    userId: '',
+    error: '',
+    reset() {
+      this.loggedin = false;
+      this.username = '';
+      this.error = '';
+      this.userId = '';
     },
-    test2() {
-      getLocations();
-    }
+    signIn() {
+      if (this.loggedin) {
+        return;
+      }
+
+      doSignIn()
+      .then((result) => {
+        this.loggedin = true;
+        this.error = '';
+        const user = result.user;
+        this.username = user.displayName;
+        this.userId = user.uid;
+      })
+      .catch((e) => {
+        this.reset();
+        this.error = e.message;
+      });
+    },
+    
   }));
 
-  Alpine.data("locations", () => ({
+  Alpine.store("locations", {
     locations: {},
     first: '',
     error: null,
     async init() {
       try {
-        this.locations = await getLocations(current); 
+        this.locations = await getLocations(current);
         this.first = Object.keys(this.locations)[0];
         let event = new CustomEvent("loc-loaded", {
           detail: {
@@ -34,7 +57,7 @@ function init () {
         this.error = e;
       }
     },
-  }));
+  });
 
   Alpine.data('review', () => ({
     loc: "",
@@ -56,49 +79,24 @@ function init () {
         return;
       }
 
-      data = {
-          "timestamp": {
-            ".sv": "timestamp"
-          },
-          "rating_price": this.rating_price,
-          "rating_ice": this.rating_ice,
-          "rating_service": this.rating_service,
-          "text": this.text
+      review = {
+        "rating_price": this.rating_price,
+        "rating_ice": this.rating_ice,
+        "rating_service": this.rating_service,
+        "text": this.text
       };
+    
 
-      fetch(url+"reviews/"+this.loc+".json", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      }).then(response => {
-        if (response.ok) {
-          // ok
-          this.clear();
-          document.querySelectorAll("span.rating > i").forEach((e) => {
-            e.classList.remove("set");
-          });
-          this.status = "Review submitted";
-        } else {
-          switch (response.status) {
-            case 400:
-              this.status = "Bad Request: " + response.text()
-              break;
-            case 401:
-              this.status = "Error, star ratings are required";
-              break;
-            default:
-              this.status = "Failed"
-              break;
-          }
-        }
-
-      }).catch(error => {
-        console.log("failed....");
-        console.log(error);
+      postReview(this.loc, review)
+      .then(response => {
         this.clear();
-        this.status = "Error sending review";
+        document.querySelectorAll("span.rating > i").forEach((e) => {
+          e.classList.remove("set");
+        });
+        this.status = "Review submitted 🍦";
+      }).catch(error => {
+        this.clear();
+        this.status = "Error saving review";
       });
     },
     ratingstuff(num, type) {

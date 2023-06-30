@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { getDatabase, ref, child, get} from "firebase/database";
+import { getDatabase, ref, child, get, push, serverTimestamp} from "firebase/database";
 import { firebaseConfig } from './config.js';
 
 
@@ -10,8 +10,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export function doSignIn() {
-    signInWithPopup(auth, provider)
+function doSignIn() {
+    return signInWithPopup(auth, provider);
+    /*
         .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -32,10 +33,10 @@ export function doSignIn() {
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
         });
-
+        */
 }
 
-export async function getLocations(year='') {
+async function getLocations(year='') {
 
     const db = getDatabase(app);
     const locationRef = ref(db, '/location');
@@ -52,3 +53,16 @@ export async function getLocations(year='') {
     
     throw new Error(`Data for year "${year}" not found`);
 }
+
+function postReview(location, review) {
+    const db = getDatabase(app);
+
+    const d = {
+        "timestamp": serverTimestamp(),
+        ...review
+    };
+
+    return push(child(child(ref(db), "reviews"), location), d);
+}
+
+export { getLocations, doSignIn, postReview };
