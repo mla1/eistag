@@ -36,6 +36,37 @@ function doSignIn() {
         */
 }
 
+async function addIceCreamEaten(val) {
+    if (auth.currentUser) {
+        console.log(auth.currentUser);
+        console.log("in add ice cream eaten");
+    }
+
+    const db = getDatabase(app);
+
+    const d = {
+        "icecreamtracking": val
+    };
+
+
+    return push(child(child(ref(db), "reviews"), location), d);
+}
+
+async function getIceCreamEaten() {
+    console.log("in get ice cream ");
+    if (auth.currentUser) {
+        console.log("logged in");
+        const userId = auth.currentUser.uid;
+        const db = getDatabase(app);
+        const locationRef = ref(db, '/users/' + userId);
+        var snapshot =  await get(child(locationRef, "icecreamtracking"));
+        console.log(snapshot);
+        if (snapshot.exists()) {
+            return snapshot.val();
+        }
+    }
+}
+
 async function getLocations(year='') {
 
     const db = getDatabase(app);
@@ -65,4 +96,4 @@ function postReview(location, review) {
     return push(child(child(ref(db), "reviews"), location), d);
 }
 
-export { getLocations, doSignIn, postReview };
+export { getLocations, doSignIn, postReview, getIceCreamEaten };

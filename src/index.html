@@ -15,32 +15,30 @@
 
 		<!-- Wrapper -->
 			<div id="wrapper">
-				<div x-data="user">
-				<span id="login"><span x-text="username" x-show="username" x-transition.duration.600ms></span>&nbsp;<i  @click="signIn()" class="fa fa-user-o" aria-hidden="true"></i></span>
+				<span id="login" x-data="login"><span x-text="$store.user.username" x-show="$store.user.loggedin" x-transition.duration.600ms></span>&nbsp;<i  @click="signIn()" class="fa fa-user-o" aria-hidden="true"></i></span>
 				<!-- Header -->
-					<header id="header">
-						<div class="content">
-							<div class="inner">
-								<h1>Eistag '23</h1>
-								<p>
-									<i class="fa fa-calendar-o" aria-hidden="true"></i> July 1st<br />
-									<i class="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/P3ZtR2ZWdEoefLbKA">48.21114, 16.3653</a>
-								</p>
-							</div>
+				<header id="header">
+					<div class="content">
+						<div class="inner">
+							<h1>Eistag '23</h1>
+							<p>
+								<i class="fa fa-calendar-o" aria-hidden="true"></i> July 1st<br />
+								<i class="fa fa-map-marker" aria-hidden="true"></i> <a href="https://goo.gl/maps/P3ZtR2ZWdEoefLbKA">48.21114, 16.3653</a>
+							</p>
 						</div>
-						<nav>
-							<ul>
-								<li><a href="#about">About</a></li>
-								<li><a href="#review">Review</a></li>
-								<template x-if="loggedin">
-										<li><a href="#track">Track</a></li>
-								</template>
-								<li><a href="#contact">Contact</a></li>
+					</div>
+					<nav>
+						<ul>
+							<li><a href="#about">About</a></li>
+							<li><a href="#review">Review</a></li>
+							<template x-data x-if="$store.user.loggedin">
+									<li x-data @click=""><a href="#track">Track</a></li>
+							</template>
+							<li><a href="#contact">Contact</a></li>
 
-							</ul>
-						</nav>
-					</header>
-				</div>
+						</ul>
+					</nav>
+				</header>
 				<!-- Main -->
 					<div id="main">
 
@@ -71,8 +69,9 @@
 						</article>
 
 						<article id="track">
-							<h2 class="major">Track your Ice Cream</h2>
-							<div x-data="{ loc: '' }">
+							<h2 class="major">You have currently eaten this much ice cream</h2>
+
+							<div x-data="tracker" >
 								<div class="submitreview">
 									<button id="submit" @click="send()">Submit review</button>
 									<span x-text="status" x-show="status"  x-transition.duration.600ms></span>

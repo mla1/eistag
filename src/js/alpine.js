@@ -1,5 +1,5 @@
 import Alpine from 'alpinejs';
-import { doSignIn, getLocations, postReview } from './firebase.js'
+import { doSignIn, getLocations, postReview, getIceCreamEaten } from './firebase.js'
 
 
 const url = 'https://eistag-default-rtdb.europe-west1.firebasedatabase.app/';
@@ -7,17 +7,40 @@ const current='2023';
 
 function init () {
 
-  Alpine.data("user", () => ({
+  Alpine.store("user", {
     loggedin: false,
     username: '',
     userId: '',
-    error: '',
-    reset() {
+    icecream: 0,
+    login(user) {
+      console.log("user store login function called");
+      this.loggedin = true;
+      this.username = user.displayName;
+      this.userId = user.uid;
+      this.getIceCream();
+    },
+    logout() {
       this.loggedin = false;
       this.username = '';
-      this.error = '';
       this.userId = '';
     },
+    async getIceCream() {
+      const val = await getIceCreamEaten();
+      this.icecream = val;
+    }
+  });
+
+  Alpine.data("tracker", () => ({
+    number: 0,
+    submit() {
+      if (!!this.number) {
+
+      }
+    }
+  }));
+
+  Alpine.data("login", () => ({
+    error: '',
     signIn() {
       if (this.loggedin) {
         return;
@@ -25,14 +48,10 @@ function init () {
 
       doSignIn()
       .then((result) => {
-        this.loggedin = true;
         this.error = '';
-        const user = result.user;
-        this.username = user.displayName;
-        this.userId = user.uid;
+        this.$store.user.login(result.user);
       })
       .catch((e) => {
-        this.reset();
         this.error = e.message;
       });
     },
@@ -113,4 +132,5 @@ function init () {
 
 
 document.addEventListener('alpine:init', () => init());
+window.Alpine = Alpine;
 Alpine.start();
