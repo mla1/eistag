@@ -30,6 +30,9 @@ function init () {
         this.rating_service = 0;
         this.text = "";
         this.status = "";
+        this.ratingstuff(0, "rp");
+        this.ratingstuff(0, "ri");
+        this.ratingstuff(0, "rs");        
     },
     send() {
       if (!this.rating_ice || !this.rating_price || !this.rating_service) {
